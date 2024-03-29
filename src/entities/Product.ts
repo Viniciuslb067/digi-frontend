@@ -5,5 +5,6 @@ export type Product = {
   hero?: string;
   image: string;
   info?: string;
+  slug?: string;
   offer?: string;
 };

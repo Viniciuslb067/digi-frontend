@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { API_URL } from "@/config/constants";
 
 const axiosConfig = {
@@ -9,5 +9,14 @@ const axiosConfig = {
 };
 
 const axiosInstance = axios.create(axiosConfig);
+
+const responseInterceptor = (response: AxiosResponse) => {
+  if (response.data) return response.data;
+  return response;
+};
+
+axiosInstance.interceptors.response.use(responseInterceptor, async (error) => {
+  return Promise.reject(error);
+});
 
 export default axiosInstance;

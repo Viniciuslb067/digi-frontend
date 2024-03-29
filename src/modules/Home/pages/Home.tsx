@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { Button } from "@/components/ui/button";
 
 import useGetProducts from "@/services/Home/queries/useGetProducts";
@@ -43,7 +45,15 @@ const Home = () => {
                           </span>
                           <span>R${product.price}</span>
                         </div>
-                        <Button>Comprar este produto</Button>
+                        <Link to={`/product/${product.slug}`}>
+                          <Button
+                            size="lg"
+                            variant="outline"
+                            className="border-black"
+                          >
+                            Comprar
+                          </Button>
+                        </Link>
                       </CardFooter>
                     </Card>
                   </div>
