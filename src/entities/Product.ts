@@ -7,4 +7,5 @@ export type Product = {
   info?: string;
   slug?: string;
   offer?: string;
+  quantity?: number;
 };
