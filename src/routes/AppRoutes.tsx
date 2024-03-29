@@ -1,18 +1,26 @@
-import { Spinner } from "@/components/ui/spinner";
 import { lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import { Spinner } from "@/components/ui/spinner";
+
+const Layout = lazy(() => import("@/components/Layouts/Layout"));
 
 const Home = lazy(() => import("@/modules/Home/pages/Home"));
 const Product = lazy(() => import("@/modules/Product/pages/Product"));
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/product/:slug",
-    element: <Product />,
+    element: <Layout key="layout" />,
+    children: [
+      {
+        path: "/",
+        element: <Home key="home" />,
+      },
+      {
+        path: "/product/:slug",
+        element: <Product key="product" />,
+      },
+    ],
   },
 ]);
 
