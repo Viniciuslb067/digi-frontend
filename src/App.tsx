@@ -1,12 +1,11 @@
-import Home from "@/modules/Home/pages/Home";
-import { queryClient } from "@/lib/react-query";
-import { QueryClientProvider } from "react-query";
+import AppProvider from "@/context/AppProvider/AppProvider";
+import { AppRoutes } from "./routes/AppRoutes";
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Home />
-    </QueryClientProvider>
+    <AppProvider>
+      <AppRoutes />
+    </AppProvider>
   );
 }
 
