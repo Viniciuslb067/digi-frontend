@@ -5,6 +5,8 @@ import { Spinner } from "@/components/ui/spinner";
 import { Toaster } from "@/components/ui/toaster";
 import { queryClient } from "@/lib/react-query";
 
+import { CartProvider } from "../CartProvider/CardProvider";
+
 type AppProviderProps = {
   children: React.ReactNode;
 };
@@ -14,7 +16,7 @@ const AppProvider = ({ children }: AppProviderProps) => {
     <Suspense fallback={<Spinner />}>
       <QueryClientProvider client={queryClient}>
         <Toaster />
-        {children}
+        <CartProvider>{children}</CartProvider>
       </QueryClientProvider>
     </Suspense>
   );
