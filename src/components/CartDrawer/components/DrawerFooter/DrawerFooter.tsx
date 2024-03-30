@@ -21,7 +21,7 @@ export const DrawerFooter = () => {
       <div className="w-full px-6 pb-6 pt-4 flex flex-col gap-4">
         <div className="flex flex-row justify-between">
           <span className="font-light">Subtotal</span>
-          <span className="font-bold">R$ {total}</span>
+          <span className="font-bold">R$ {total.toFixed(2)}</span>
         </div>
         <Button
           autoFocus
