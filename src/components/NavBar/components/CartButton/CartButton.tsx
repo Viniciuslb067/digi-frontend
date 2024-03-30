@@ -13,7 +13,7 @@ export const CartButton = () => {
     >
       <div className="flex flex-row gap-1 lg:gap-2 justify-center items-center">
         <ShoppingCart color="black" />
-        <div className="size-4 lg:size-5 bg-black rounded-full px-1 text-xs lg:text-sm">
+        <div className="size-4 lg:size-5 bg-black rounded-md px-1 text-xs lg:text-sm">
           {cart.length}
         </div>
       </div>
