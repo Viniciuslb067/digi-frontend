@@ -7,6 +7,9 @@ import { queryClient } from "@/lib/react-query";
 
 import { CartProvider } from "../CartProvider/CardProvider";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 type AppProviderProps = {
   children: React.ReactNode;
 };
