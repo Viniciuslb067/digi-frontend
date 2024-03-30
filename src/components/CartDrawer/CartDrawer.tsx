@@ -19,6 +19,30 @@ export const CartDrawer = () => {
     return acc + +product.price * (product?.quantity || 0);
   }, 0);
 
+  const renderCartContent = () => {
+    if (cartIsEmpty) {
+      return (
+        <div className="flex flex-col items-center justify-center h-full">
+          <span className="text-lg font-light">Seu carrinho está vazio</span>
+        </div>
+      );
+    }
+
+    return (
+      <div className="py-4 pl-6 pr-2">
+        <ScrollArea
+          style={{
+            height: `${!cart.length ? "100%" : "calc(100vh - 226px)"}`,
+          }}
+        >
+          {cart?.map((product) => (
+            <CartItem key={product.slug} product={product} />
+          ))}
+        </ScrollArea>
+      </div>
+    );
+  };
+
   return (
     <Sheet open={cartDrawerOpen} onOpenChange={setCartDrawerOpen}>
       <SheetContent className="h-full justify-between w-full flex flex-col !p-0">
@@ -31,25 +55,7 @@ export const CartDrawer = () => {
             <SheetTitle className="text-xl pl-6">Meu Carrinho</SheetTitle>
           </SheetHeader>
 
-          {cart.length === 0 && (
-            <div className="flex flex-col items-center justify-center h-full">
-              <span className="text-lg font-light">
-                Seu carrinho está vazio
-              </span>
-            </div>
-          )}
-
-          <div className="py-4 pl-6 pr-2">
-            <ScrollArea
-              style={{
-                height: `${!cart.length ? "100%" : "calc(100vh - 226px)"}`,
-              }}
-            >
-              {cart?.map((product) => (
-                <CartItem key={product.slug} product={product} />
-              ))}
-            </ScrollArea>
-          </div>
+          {renderCartContent()}
         </div>
         {!cartIsEmpty && (
           <SheetFooter className="w-full border-solid border-t border-gray-300">
