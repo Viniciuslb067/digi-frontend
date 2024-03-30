@@ -2,11 +2,13 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
+import useGetProductBySlug from "@/services/Product/queries/useGetProductBySlug";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/context/CartProvider/CardProvider";
 import { Product as ProductEntity } from "@/entities/Product";
-import useGetProductBySlug from "@/services/Product/queries/useGetProductBySlug";
+import { ProductBreadcrumb } from "../components";
 
 const Product = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -35,11 +37,12 @@ const Product = () => {
       <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_1fr] gap-6 lg:gap-28">
         <div>
           <img
-            className="w-full object-cover max-h-96"
             src={response?.data?.image}
+            className="w-full object-cover max-h-96"
           />
         </div>
         <div className="flex flex-col gap-4">
+          <ProductBreadcrumb productName={response?.data?.name} />
           <span className="text-5xl capitalize">{response?.data?.name}</span>
           <span className="text-lg text-gray-700">
             {response?.data?.detail}
