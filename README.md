@@ -27,6 +27,10 @@ Digi Store é uma aplicação de e-commerce simplificada, desenvolvida para exib
 
 
 
+https://github.com/Viniciuslb067/digi-frontend/assets/62270606/7ea03101-de7b-47f8-b2ac-755bfd5f1286
+
+
+
 
 </p>
 
