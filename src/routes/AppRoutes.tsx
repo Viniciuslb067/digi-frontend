@@ -7,6 +7,7 @@ const Layout = lazy(() => import("@/components/Layouts/Layout"));
 
 const Home = lazy(() => import("@/modules/Home/pages/Home"));
 const Product = lazy(() => import("@/modules/Product/pages/Product"));
+const History = lazy(() => import("@/modules/Purchase/pages/History"));
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
       {
         path: "/product/:slug",
         element: <Product key="product" />,
+      },
+      {
+        path: "/purchase-history",
+        element: <History key="purchase-history" />,
       },
     ],
   },
