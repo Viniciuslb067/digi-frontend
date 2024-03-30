@@ -9,7 +9,7 @@ type CartItemProps = {
 };
 
 export const CartItem = ({ product }: CartItemProps) => {
-  const { removeItem } = useCart();
+  const { removeItem, updateItemQuantity } = useCart();
 
   return (
     <div className="flex flex-row py-4 gap-2 pr-5">
@@ -31,6 +31,7 @@ export const CartItem = ({ product }: CartItemProps) => {
           className="w-16"
           value={product.quantity}
           defaultValue={product.quantity}
+          onChange={(e) => updateItemQuantity(+e.target.value, product?.slug)}
         />
       </div>
     </div>
