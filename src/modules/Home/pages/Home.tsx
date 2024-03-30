@@ -1,67 +1,28 @@
-import { Link } from "react-router-dom";
-
-import { Button } from "@/components/ui/button";
+import Slider from "react-slick";
 
 import useGetProducts from "@/services/Home/queries/useGetProducts";
+import { NextArrow, PrevArrow } from "@/components/SliderArrows";
 
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { ProductCard } from "../components";
+import { sliderBreakpoints } from "../constants";
 
 const Home = () => {
   const { data: response } = useGetProducts();
 
   return (
-    <div className="flex flex-col gap-8">
-      <span className="text-3xl font-semibold">The Digi Store</span>
+    <div className="flex flex-col gap-12 p-4 lg:p-0">
+      <span className="text-2xl lg:text-4xl font-semibold">The Digi Store</span>
       <div className="flex flex-col gap-2">
-        <Carousel className="w-full">
-          <CarouselContent className="-ml-1">
-            {response?.data?.map((product, index) => (
-              <CarouselItem
-                key={index}
-                className="pl-1 md:basis-1/2 lg:basis-1/3"
-              >
-                <div className="p-1">
-                  <Card>
-                    <CardContent
-                      className={`flex aspect-square justify-center p-6`}
-                    >
-                      <img
-                        className="size-full object-cover"
-                        src={product.image}
-                      />
-                    </CardContent>
-                    <CardFooter className="flex w-full flex-col justify-center items-center gap-4">
-                      <div className="flex flex-col gap-2 items-center">
-                        <span className="text-lg capitalize">
-                          {product.name}
-                        </span>
-                        <span>R${product.price}</span>
-                      </div>
-                      <Link to={`/product/${product.slug}`}>
-                        <Button
-                          size="lg"
-                          variant="outline"
-                          className="border-black"
-                        >
-                          Comprar
-                        </Button>
-                      </Link>
-                    </CardFooter>
-                  </Card>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
-        </Carousel>
+        <Slider
+          slidesToShow={3}
+          nextArrow={<NextArrow />}
+          prevArrow={<PrevArrow />}
+          responsive={sliderBreakpoints}
+        >
+          {response?.data?.map((product) => (
+            <ProductCard key={product.slug} product={product} />
+          ))}
+        </Slider>
       </div>
     </div>
   );
