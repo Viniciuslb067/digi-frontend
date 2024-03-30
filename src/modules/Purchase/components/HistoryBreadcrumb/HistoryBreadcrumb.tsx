@@ -13,7 +13,7 @@ export const HistoryBreadcrumb = () => {
   const { state } = useLocation();
 
   const renderFromUrl = () => {
-    if (state.includes("/product")) {
+    if (state?.includes("/product")) {
       const productName = state
         .split("/")
         .pop()
