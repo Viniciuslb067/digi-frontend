@@ -13,7 +13,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div key={product.slug} className="p-0">
       <Card>
-        <CardContent className={`flex aspect-square justify-center p-2 lg:p-6`}>
+        <CardContent className="flex aspect-square justify-center p-2 lg:p-4">
           <img src={product.image} className="size-full object-cover" />
         </CardContent>
         <CardFooter className="flex w-full flex-col justify-center items-center gap-4">
