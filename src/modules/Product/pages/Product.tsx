@@ -19,17 +19,24 @@ const Product = () => {
   const { addToCart } = useCart();
 
   const handleAddToCart = (product?: ProductEntity) => {
+    const isDesktop = window.innerWidth >= 1024;
+
     if (!product) return;
 
     if (!quantity) {
-      toast.error("É necessário adicionar uma quantidade.");
+      if (isDesktop) {
+        toast.error("É necessário adicionar uma quantidade.");
+      }
+
       return;
     }
 
     addToCart({ ...product, quantity });
     setQuantity(1);
 
-    toast.success("Produto adicionado ao carrinho.");
+    if (isDesktop) {
+      toast.success("Produto adicionado ao carrinho.");
+    }
   };
 
   return (
@@ -43,8 +50,10 @@ const Product = () => {
         </div>
         <div className="flex flex-col gap-4">
           <ProductBreadcrumb productName={response?.data?.name} />
-          <span className="text-5xl capitalize">{response?.data?.name}</span>
-          <span className="text-lg text-gray-700">
+          <h1 className="text-3xl lg:text-5xl capitalize">
+            {response?.data?.name}
+          </h1>
+          <span className="text-sm lg:text-lg text-gray-700">
             {response?.data?.detail}
           </span>
           <span className="text-lg">
