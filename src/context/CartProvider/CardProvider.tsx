@@ -12,6 +12,7 @@ import { Product } from "@/entities/Product";
 type CartContextProps = {
   cart: Product[];
   cartDrawerOpen: boolean;
+  clearCart: () => void;
   removeItem: (slug?: string) => void;
   addToCart: (product: Product) => void;
   updateItemQuantity: (quantity: number, slug?: string) => void;
@@ -24,6 +25,7 @@ type CartProviderProps = {
 
 const initialContext: CartContextProps = {
   cart: [],
+  clearCart: () => {},
   addToCart: () => {},
   removeItem: () => {},
   cartDrawerOpen: false,
@@ -83,9 +85,14 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     );
   };
 
+  const clearCart = () => {
+    setCart([]);
+  };
+
   const value = useMemo(
     () => ({
       cart,
+      clearCart,
       addToCart,
       removeItem,
       cartDrawerOpen,
