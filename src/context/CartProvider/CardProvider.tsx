@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import toast from "react-hot-toast";
 
 import { Product } from "@/entities/Product";
@@ -8,6 +14,7 @@ type CartContextProps = {
   cartDrawerOpen: boolean;
   removeItem: (slug?: string) => void;
   addToCart: (product: Product) => void;
+  updateItemQuantity: (quantity: number, slug?: string) => void;
   setCartDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -15,13 +22,16 @@ type CartProviderProps = {
   children: React.ReactNode;
 };
 
-const CartContext = createContext<CartContextProps>({
+const initialContext: CartContextProps = {
   cart: [],
   addToCart: () => {},
   removeItem: () => {},
   cartDrawerOpen: false,
   setCartDrawerOpen: () => {},
-});
+  updateItemQuantity: () => {},
+};
+
+const CartContext = createContext<CartContextProps>(initialContext);
 
 export const CartProvider = ({ children }: CartProviderProps) => {
   const [cart, setCart] = useState<Product[]>([]);
@@ -63,13 +73,27 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     toast.success("Produto removido do carrinho.");
   };
 
-  const value = {
-    cart,
-    addToCart,
-    removeItem,
-    cartDrawerOpen,
-    setCartDrawerOpen,
+  const updateItemQuantity = (quantity: number, slug?: string) => {
+    if (!slug || quantity <= 0) return;
+
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.slug === slug ? { ...item, quantity } : item
+      )
+    );
   };
+
+  const value = useMemo(
+    () => ({
+      cart,
+      addToCart,
+      removeItem,
+      cartDrawerOpen,
+      setCartDrawerOpen,
+      updateItemQuantity,
+    }),
+    [cart, cartDrawerOpen]
+  );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
