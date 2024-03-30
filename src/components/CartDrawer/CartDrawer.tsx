@@ -1,23 +1,13 @@
 import { useCart } from "@/context/CartProvider/CardProvider";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetFooter,
-} from "../ui/sheet";
-import { Button } from "../ui/button";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "../ui/sheet";
 import { CartItem } from "./components";
 import { ScrollArea } from "../ui/scroll-area";
+import { DrawerFooter } from "./components/DrawerFooter/DrawerFooter";
 
 export const CartDrawer = () => {
   const { cart, cartDrawerOpen, setCartDrawerOpen } = useCart();
 
   const cartIsEmpty = !cart.length;
-
-  const total = cart?.reduce((acc, product) => {
-    return acc + +product.price * (product?.quantity || 0);
-  }, 0);
 
   const renderCartContent = () => {
     if (cartIsEmpty) {
@@ -57,19 +47,7 @@ export const CartDrawer = () => {
 
           {renderCartContent()}
         </div>
-        {!cartIsEmpty && (
-          <SheetFooter className="w-full border-solid border-t border-gray-300">
-            <div className="w-full px-6 pb-6 pt-4 flex flex-col gap-4">
-              <div className="flex flex-row justify-between">
-                <span className="font-light">Subtotal</span>
-                <span className="font-bold">R$ {total}</span>
-              </div>
-              <Button className="w-full !m-0 bg-black" autoFocus>
-                Finalizar pedido
-              </Button>
-            </div>
-          </SheetFooter>
-        )}
+        {!cartIsEmpty && <DrawerFooter />}
       </SheetContent>
     </Sheet>
   );
