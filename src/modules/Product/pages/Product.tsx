@@ -18,6 +18,12 @@ const Product = () => {
 
   const { addToCart } = useCart();
 
+  const handleQuantityChange = (value: number) => {
+    if (value <= 0) return;
+
+    setQuantity(value);
+  };
+
   const handleAddToCart = (product?: ProductEntity) => {
     const isDesktop = window.innerWidth >= 1024;
 
@@ -32,11 +38,14 @@ const Product = () => {
     }
 
     addToCart({ ...product, quantity });
-    setQuantity(1);
 
     if (isDesktop) {
       toast.success("Produto adicionado ao carrinho.");
     }
+
+    setTimeout(() => {
+      setQuantity(1);
+    }, 800);
   };
 
   return (
@@ -70,8 +79,9 @@ const Product = () => {
               min="1"
               type="number"
               defaultValue="1"
+              value={quantity}
               className="w-14 lg:w-16 h-full"
-              onChange={(e) => setQuantity(Number(e.target.value))}
+              onChange={(e) => handleQuantityChange(+e.target.value)}
             />
           </div>
         </div>
